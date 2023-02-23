@@ -9,7 +9,7 @@ const Auth = () => {
     const [newAccount, setNewAccount] = useState(true);
     const [error, setError] = useState("");
     const onChange = (event) => {
-        console.log(event.target.name);
+        //console.log(event.target.name);
         const {
             target: {name, value},
         } = event; //event.target 의 name과 value를 가져옴 const {a, b} = stuct
@@ -23,7 +23,7 @@ const Auth = () => {
         event.preventDefault();  
         try {
             let data;
-            console.log(newAccount)
+            //console.log(newAccount)
             if(newAccount){
                 //create account
                 data = await createUserWithEmailAndPassword(authService, email, password)
@@ -44,14 +44,14 @@ const Auth = () => {
             target: { name },
         } = event; //ES6?
         let provider;
-        console.log(name)
+        //console.log(name)
         if(name === "google"){
             provider = new GoogleAuthProvider();            
         } else if (name === "github"){
             provider = new GithubAuthProvider();
         }
         await signInWithPopup(authService, provider);
-        console.log(provider)
+        //console.log(provider)
     }
     return (
         <div>
