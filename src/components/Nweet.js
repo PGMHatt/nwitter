@@ -1,7 +1,8 @@
-import { dbService } from "myFirebase";
+import { dbService, storageService } from "myFirebase";
 import React, {useState} from "react"
 import { COLLECTION_NAME } from "routes/Home";
 import { doc, deleteDoc, updateDoc }from"firebase/firestore";
+import { deleteObject, ref } from "firebase/storage";
 
 
 const Nweet = ({nweetObj, isOwner}) => {
@@ -13,6 +14,10 @@ const Nweet = ({nweetObj, isOwner}) => {
             //delete nweet
             const NweetTextRef = doc(dbService, COLLECTION_NAME, `${nweetObj.id}`);
             await deleteDoc(NweetTextRef);
+            
+            //delete photo
+            const attachmentRef = ref(storageService, nweetObj.attachmentUrl);
+            await deleteObject(attachmentRef);            
         }
     }
 
@@ -50,7 +55,8 @@ const Nweet = ({nweetObj, isOwner}) => {
             ) : (
                 <>
                     <h4>{nweetObj.text}</h4>
-                        {isOwner && (
+                    {nweetObj.attachmentUrl && <img src={nweetObj.attachmentUrl} width="50px" height="50px" alt="profile" />}
+                    {isOwner && (
                         <>
                             <button onClick={onDeleteClick}>Delete Nweet</button>
                             <button onClick={toggleEditing}>Edit Nweet</button>
