@@ -41,14 +41,14 @@ const Profile = ({userObj, refreshUser}) => {
         
     }
 
-    return ( //fregment?
-        <>
-        <form onSubmit={onSubmit}>
-            <input type="text" onChange={onChange} placeholder="Display name" value={newDisplayName} />
-            <input type="submit" value ="Update Profile" />
+    return (        
+        <div className="container">
+        <form onSubmit={onSubmit} className="profileForm">
+            <input type="text" autoFocus className="formInput" onChange={onChange} placeholder="Display name" value={newDisplayName} />
+            <input type="submit" value ="Update Profile" className="formBtn" style={{marginTop:10,}} />
         </form>
-            <button onClick={onLogOutClick}>Log Out</button>;
-        </>
+            <button className="formBtn cancelBtn logOut" onClick={onLogOutClick}>Log Out</button>
+        </div>
     )
 };
 

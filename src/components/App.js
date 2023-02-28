@@ -7,18 +7,19 @@ function App() {
   const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(null);
-  const [userDisplayName, setUserDisplayName] = useState(null);
+  const [userDisplayName, setUserDisplayName] = useState("");
   useEffect(() => { //react hook
     onAuthStateChanged(authService,(user)=>{ 
       if(user){
         setIsLoggedIn(true);
         setUserObj(user);
+        setUserDisplayName(user.displayName);
       } else {
         setIsLoggedIn(false);
       }
       setInit(true);
     });
-  }, []);
+  }, []); 
 
   const refreshUser = () => {
     setUserDisplayName(authService.currentUser.displayName);
@@ -26,9 +27,9 @@ function App() {
     console.log("refresh user ->", authService.currentUser.displayName)
   }
 
-  return <>
-    {init ? <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} refreshUser={refreshUser} userName={userObj.displayName}/> : "Initializing.."}
-  </>;
+  return (<>
+    {init ? <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} refreshUser={refreshUser} userName={userDisplayName}/> : "Initializing.."}
+  </>);
 }
 
 export default App;
