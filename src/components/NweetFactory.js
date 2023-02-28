@@ -15,7 +15,7 @@ const NweetFactory = ({ userObj }) => {
         event.preventDefault();
         console.log(userObj.uid);
         let attachmentUrl = ""
-        if(nweet == "") {
+        if(nweet === "") {
             return;
         }
         if(attachment !== "")
@@ -67,7 +67,7 @@ const NweetFactory = ({ userObj }) => {
                 {attachment && (
                     <div className="factoryForm__attachment">
                     <img
-                      src={attachment}
+                      src={attachment} alt="profile"
                       style={{
                         backgroundImage: attachment,
                       }}

@@ -15,15 +15,16 @@ const Profile = ({userObj, refreshUser}) => {
         navigate("/");
     };
 
-    const getMyNweets = async () => {
-        const q = query(collection(dbService, COLLECTION_NAME), where("creatorId", "==", userObj.uid), orderBy("createdAt", "desc"));
-        const nweets = await getDocs(q);
-        console.log(nweets.docs.map((doc)=>doc.data()));
-    }
-
     useEffect(() => {
+        const getMyNweets = async () => {
+            const q = query(collection(dbService, COLLECTION_NAME)
+                , where("creatorId", "==", userObj.uid)
+                , orderBy("createdAt", "desc"));
+            const nweets = await getDocs(q);
+            console.log(nweets.docs.map((doc)=>doc.data()));
+        }
         getMyNweets();
-    }, [newDisplayName]);
+    }, [userObj.uid]);
 
     const onChange = (event) => {
         const {
